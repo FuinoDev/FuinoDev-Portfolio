@@ -1,106 +1,139 @@
-import type { CSSProperties } from "react";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { FaGithub, FaInstagram } from "react-icons/fa";
 
-function GalaxyBackground() {
-  const stars = Array.from({ length: 90 }, (_, index) => {
-    const angle = (index / 90) * 360;
-    const radius = 20 + ((index * 37) % 80);
-    const depth = 0.35 + ((index * 17) % 65) / 100;
-    const size = 1 + depth * 2;
-    const opacity = 0.25 + depth * 0.65;
-    const duration = 35 + ((index * 13) % 45);
-    const delay = -((index * 19) % 60);
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
-    return {
-      angle: `${angle}deg`,
-      radius: `${radius}%`,
-      depth,
-      size: `${size}px`,
-      opacity,
-      duration: `${duration}s`,
-      delay: `${delay}s`,
-    };
-  });
+  const links = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#030014]">
-      <div className="absolute left-1/2 top-1/2 h-[70vh] w-[100vw] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-purple-900/10 blur-[140px]" />
+    <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto max-w-7xl rounded-2xl border border-white/10 bg-[#030014]/70 px-4 py-3 backdrop-blur-xl sm:px-6">
+        <div className="flex items-center justify-between">
+          <a
+            href="#home"
+            onClick={() => setIsOpen(false)}
+            className="text-xl font-bold tracking-tight"
+          >
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              Fuino
+            </span>
+            <span className="text-white">Dev</span>
+          </a>
 
-      <div className="absolute left-[15%] top-[15%] h-[30rem] w-[30rem] rounded-full bg-blue-600/10 blur-[150px]" />
+          <div className="hidden items-center gap-8 md:flex">
+            {links.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm text-gray-400 transition hover:text-white"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
 
-      <div className="absolute bottom-0 right-[5%] h-[35rem] w-[35rem] rounded-full bg-violet-600/10 blur-[160px]" />
+          <div className="hidden items-center gap-3 md:flex">
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition hover:bg-white/10 hover:text-white"
+            >
+              <FaGithub className="h-4 w-4" />
+            </a>
 
-      <div className="universe">
-        <div className="orbit orbit-1">
-          {stars.slice(0, 30).map((star, index) => (
-            <span
-              key={index}
-              className="space-star"
-              style={
-                {
-                  "--angle": star.angle,
-                  "--radius": star.radius,
-                  "--depth": star.depth,
-                  "--size": star.size,
-                  "--opacity": star.opacity,
-                  "--duration": star.duration,
-                  "--delay": star.delay,
-                } as CSSProperties
-              }
-            />
-          ))}
+            <a
+              href="https://instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition hover:bg-white/10 hover:text-white"
+            >
+              <FaInstagram className="h-4 w-4" />
+            </a>
+
+            <a
+              href="#contact"
+              className="ml-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
+            >
+              Let's Talk
+            </a>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-gray-300 transition hover:bg-white/10 hover:text-white md:hidden"
+          >
+            {isOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
         </div>
 
-        <div className="orbit orbit-2">
-          {stars.slice(30, 60).map((star, index) => (
-            <span
-              key={index}
-              className="space-star"
-              style={
-                {
-                  "--angle": star.angle,
-                  "--radius": star.radius,
-                  "--depth": star.depth,
-                  "--size": star.size,
-                  "--opacity": star.opacity,
-                  "--duration": star.duration,
-                  "--delay": star.delay,
-                } as CSSProperties
-              }
-            />
-          ))}
-        </div>
+        {isOpen && (
+          <div className="mt-4 border-t border-white/10 pt-4 md:hidden">
+            <div className="flex flex-col gap-1">
+              {links.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-lg px-3 py-3 text-sm text-gray-400 transition hover:bg-white/5 hover:text-white"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
 
-        <div className="orbit orbit-3">
-          {stars.slice(60, 90).map((star, index) => (
-            <span
-              key={index}
-              className="space-star"
-              style={
-                {
-                  "--angle": star.angle,
-                  "--radius": star.radius,
-                  "--depth": star.depth,
-                  "--size": star.size,
-                  "--opacity": star.opacity,
-                  "--duration": star.duration,
-                  "--delay": star.delay,
-                } as CSSProperties
-              }
-            />
-          ))}
-        </div>
-      </div>
+            <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://github.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="text-gray-400 transition hover:text-white"
+                >
+                  <FaGithub className="h-5 w-5" />
+                </a>
 
-      <div className="galaxy-core" />
+                <a
+                  href="https://instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="text-gray-400 transition hover:text-white"
+                >
+                  <FaInstagram className="h-5 w-5" />
+                </a>
+              </div>
 
-      <div className="meteor meteor-1" />
-      <div className="meteor meteor-2" />
-      <div className="meteor meteor-3" />
-      <div className="meteor meteor-4" />
-
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#030014_100%)]" />
-    </div>
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black"
+              >
+                Let's Talk
+              </a>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
   );
 }
 
-export default GalaxyBackground;
+export default Navbar;
