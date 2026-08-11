@@ -1,22 +1,35 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GalaxyBackground from "./components/GalaxyBackground";
 import Navbar from "./components/Navbar";
 import Home from "./pages/portfolio/Home";
-import About from "./pages/portfolio/About";
-import Projects from "./pages/portfolio/Projects";
-import Contact from "./pages/portfolio/Contact";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <div className="relative min-h-screen overflow-x-hidden bg-[#030014] text-white">
+      <GalaxyBackground />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-    </BrowserRouter>
+      <div className="relative z-10">
+        <Navbar />
+
+        <main>
+          <Home />
+
+          <section
+            id="about"
+            className="min-h-screen px-6 py-32"
+          />
+
+          <section
+            id="projects"
+            className="min-h-screen px-6 py-32"
+          />
+
+          <section
+            id="contact"
+            className="min-h-screen px-6 py-32"
+          />
+        </main>
+      </div>
+    </div>
   );
 }
 

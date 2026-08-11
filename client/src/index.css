@@ -1,1 +1,113 @@
 @import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #030014;
+  color: white;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(167, 139, 250, 0.7) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+  background-size:
+    90px 90px,
+    150px 150px,
+    220px 220px;
+  background-position:
+    10px 20px,
+    50px 80px,
+    120px 40px;
+  animation: stars-move 30s linear infinite;
+}
+
+@keyframes stars-move {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-120px);
+  }
+}
+
+.meteor {
+  position: absolute;
+  width: 140px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(167, 139, 250, 0.7),
+    white
+  );
+  opacity: 0;
+  transform: rotate(-35deg);
+  animation: meteor 6s linear infinite;
+}
+
+.meteor-1 {
+  top: 8%;
+  left: 85%;
+  animation-delay: 1s;
+}
+
+.meteor-2 {
+  top: 25%;
+  left: 70%;
+  animation-delay: 4s;
+}
+
+.meteor-3 {
+  top: 12%;
+  left: 45%;
+  animation-delay: 7s;
+}
+
+.meteor-4 {
+  top: 40%;
+  left: 95%;
+  animation-delay: 10s;
+}
+
+@keyframes meteor {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-35deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 0;
+    transform: translate(-400px, 300px) rotate(-35deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-400px, 300px) rotate(-35deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars,
+  .meteor {
+    animation: none;
+  }
+}
