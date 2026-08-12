@@ -103,7 +103,7 @@ function Navbar() {
 
           {/* Center Navigation */}
           <div className="absolute left-1/2 flex -translate-x-1/2 items-center">
-            <div className="flex items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8">
+            <div className="flex items-center gap-4 sm:gap-4 md:gap-6 lg:gap-8">
               {links.map((link) => {
                 const isActive = active === link.name;
 
